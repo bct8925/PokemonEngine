@@ -5,37 +5,38 @@ import java.util.TimerTask;
 
 public class Animation {
 
-    private long speed = 8L;    // Actual game speed
+  private long speed = 8L;    // Actual game speed
 
-    private int frame;
-    public int getFrame() {
-        return frame;
-    }
+  private int frame;
 
-    private java.util.Timer timer = new Timer();
+  public int getFrame() {
+    return frame;
+  }
 
-    public Animation() {
-        this.frame = 1;
-    }
+  private java.util.Timer timer = new Timer();
 
-    public void run(Runnable run, int endFrame) {
-        Thread thread = new Thread(() -> {
-            timer = new Timer();
-            timer.scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    run.run();
-                    if (frame >= endFrame) {
-                        timer.cancel();
-                    }
-                    frame++;
-                }
-            }, 0L, speed);
-        });
-        thread.start();
-    }
+  public Animation() {
+    this.frame = 1;
+  }
 
-    public void stopAnimation() throws IllegalStateException {
-        timer.cancel();
-    }
+  public void run(Runnable run, int endFrame) {
+    Thread thread = new Thread(() -> {
+      timer = new Timer();
+      timer.scheduleAtFixedRate(new TimerTask() {
+        @Override
+        public void run() {
+          run.run();
+          if (frame >= endFrame) {
+            timer.cancel();
+          }
+          frame++;
+        }
+      }, 0L, speed);
+    });
+    thread.start();
+  }
+
+  public void stopAnimation() throws IllegalStateException {
+    timer.cancel();
+  }
 }
