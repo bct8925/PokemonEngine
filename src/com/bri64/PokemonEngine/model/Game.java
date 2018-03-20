@@ -2,9 +2,8 @@ package com.bri64.PokemonEngine.model;
 
 import com.bri64.PokemonEngine.appl.RenderController;
 import com.bri64.PokemonEngine.appl.ZoneController;
-import javafx.animation.AnimationTimer;
 
-public class Game {
+public class Game extends Renderable {
 
   // Controllers
   private RenderController renderController;
@@ -16,25 +15,18 @@ public class Game {
   // Init
   public Game(final RenderController renderController) {
     this.renderController = renderController;
-    this.player = new Player(renderController);
-    this.zoneController = new ZoneController(renderController);
+    this.zoneController = new ZoneController();
 
-    new AnimationTimer() {
-      @Override
-      public void handle(long now) {
-        render();
-      }
-    }.start();
+    this.player = new Player(null, null);
   }
 
   // Render
-  private void render() {
+  public void render() {
     // Clear screen
     renderController.clear();
 
-    // Render objects (layers are hard)
-    zoneController.getCurrentZone().render();
-    player.render();
+    // Render zone (and its children)
+    //zoneController.getCurrentZone().render();
   }
 
 }

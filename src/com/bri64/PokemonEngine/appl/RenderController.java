@@ -1,6 +1,6 @@
 package com.bri64.PokemonEngine.appl;
 
-import com.bri64.PokemonEngine.model.DrawableObject;
+import com.bri64.PokemonEngine.model.Renderable;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -17,7 +17,7 @@ public class RenderController {
   public void clear() {
     graphicsContext.clearRect(0, 0, graphicsContext.getCanvas().getWidth(), graphicsContext.getCanvas().getHeight());
   }
-  public void draw(final DrawableObject obj) {
-    graphicsContext.drawImage(obj.getSprite(), obj.getPos().getX() + origin.getX(), obj.getPos().getY() + origin.getY());
+  public void draw(final Renderable obj) {
+    //graphicsContext.drawImage(obj.getSprite(), obj.getPos().getX() + origin.getX(), obj.getPos().getY() + origin.getY());
   }
 }

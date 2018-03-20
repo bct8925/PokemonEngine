@@ -7,14 +7,15 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class ZoneController {
 
-  private RenderController renderController;
-
   private Map<String, Zone> zones;
   private Zone currentZone;
 
-  public ZoneController(final RenderController renderController) {
-    this.renderController = renderController;
+  public ZoneController() {
     this.zones = new HashMap<>();
+
+    // Load zones
+
+    // Set current zone
   }
 
   public Zone getZone(final String ID) {
