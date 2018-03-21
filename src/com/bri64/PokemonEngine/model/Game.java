@@ -1,7 +1,7 @@
-package bri64.PokemonEngine.model;
+package com.bri64.PokemonEngine.model;
 
-import bri64.PokemonEngine.appl.RenderController;
-import bri64.PokemonEngine.appl.ZoneController;
+import com.bri64.PokemonEngine.appl.RenderController;
+import com.bri64.PokemonEngine.appl.ZoneController;
 
 public class Game {
 

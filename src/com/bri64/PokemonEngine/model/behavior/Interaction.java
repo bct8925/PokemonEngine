@@ -1,6 +1,6 @@
-package bri64.PokemonEngine.model.behavior;
+package com.bri64.PokemonEngine.model.behavior;
 
-import bri64.PokemonEngine.model.Entity;
+import com.bri64.PokemonEngine.model.Entity;
 
 /**
  * Interaction - [Strategy] adds behavior to an {@link Entity}

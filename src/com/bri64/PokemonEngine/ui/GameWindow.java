@@ -1,7 +1,7 @@
-package bri64.PokemonEngine.ui;
+package com.bri64.PokemonEngine.ui;
 
-import bri64.PokemonEngine.appl.RenderController;
-import bri64.PokemonEngine.model.Game;
+import com.bri64.PokemonEngine.appl.RenderController;
+import com.bri64.PokemonEngine.model.Game;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;

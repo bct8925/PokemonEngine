@@ -1,6 +1,6 @@
-package bri64.PokemonEngine.model;
+package com.bri64.PokemonEngine.model;
 
-import bri64.PokemonEngine.model.behavior.Interaction;
+import com.bri64.PokemonEngine.model.behavior.Interaction;
 
 public class NPC extends Character {
 

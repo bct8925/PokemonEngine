@@ -1,6 +1,6 @@
-package bri64.PokemonEngine.appl;
+package com.bri64.PokemonEngine.appl;
 
-import bri64.PokemonEngine.model.Renderable;
+import com.bri64.PokemonEngine.model.Renderable;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 

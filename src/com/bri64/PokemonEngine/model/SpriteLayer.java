@@ -1,4 +1,4 @@
-package bri64.PokemonEngine.model;
+package com.bri64.PokemonEngine.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,37 +7,23 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
-public class Zone extends Renderable {
+public class SpriteLayer extends Renderable {
 
   private int WIDTH = 800;
   private int HEIGHT = 600;
 
-  private SpriteLayer background;
-  private SpriteLayer foreground;
-  private List<Entity> entities;
+  private WritableImage staticLayer;
+  private List<Sprite> dynamicLayer;
 
-  public Zone() {
-    this.background = new SpriteLayer(RenderLayer.BG);
-    this.foreground = new SpriteLayer(RenderLayer.FG);
-    this.entities = new ArrayList<>();
-    this.layer = RenderLayer.BG;
+  public SpriteLayer(RenderLayer layer) {
+    this.staticLayer = new WritableImage(WIDTH, HEIGHT);
+    this.dynamicLayer = new ArrayList<>();
+    this.layer = layer;
 
     this.pos = new Point2D(0, 0);
-  }
-
-  public Zone(String path) {
-
-
-    this.background = new SpriteLayer(RenderLayer.BG);
-    this.foreground = new SpriteLayer(RenderLayer.FG);
-    this.entities = new ArrayList<>();
-    this.layer = RenderLayer.BG;
-  }
-
-  public void addEntity(Entity e) {
-    entities.add(e);
   }
 
   private void draw(GraphicsContext gc, Renderable r) {
@@ -49,11 +35,10 @@ public class Zone extends Renderable {
     Canvas temp = new Canvas(WIDTH, HEIGHT);
     GraphicsContext gc = temp.getGraphicsContext2D();
 
-    draw(gc, background);
-    for (Entity r : entities) {
-      draw(gc, r);
+    gc.drawImage(staticLayer, 0, 0);
+    for (Sprite s : dynamicLayer) {
+      draw(gc, s);
     }
-    draw(gc, foreground);
 
     SnapshotParameters sp = new SnapshotParameters();
     sp.setFill(new Color(0, 0, 0, 0));

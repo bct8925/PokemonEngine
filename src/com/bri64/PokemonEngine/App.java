@@ -1,7 +1,7 @@
-package bri64.PokemonEngine;
+package com.bri64.PokemonEngine;
 
-import bri64.PokemonEngine.ui.GameWindow;
-import bri64.PokemonEngine.ui.Window;
+import com.bri64.PokemonEngine.ui.GameWindow;
+import com.bri64.PokemonEngine.ui.Window;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;

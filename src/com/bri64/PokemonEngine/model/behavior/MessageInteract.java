@@ -1,4 +1,4 @@
-package bri64.PokemonEngine.model.behavior;
+package com.bri64.PokemonEngine.model.behavior;
 
 /**
  * MessageInteract - [{@link Interaction}] displays a message

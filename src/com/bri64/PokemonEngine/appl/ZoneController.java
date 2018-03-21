@@ -1,6 +1,6 @@
-package bri64.PokemonEngine.appl;
+package com.bri64.PokemonEngine.appl;
 
-import bri64.PokemonEngine.model.Zone;
+import com.bri64.PokemonEngine.model.Zone;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +14,7 @@ public class ZoneController {
     this.loadedZones = new HashMap<>();
     this.currentZone = new Zone();
 
-    // Load loadedZones
+    // Load first zone
 
     // Set current zone
   }

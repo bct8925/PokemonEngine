@@ -1,4 +1,4 @@
-package bri64.PokemonEngine.ui;
+package com.bri64.PokemonEngine.ui;
 
 import javafx.stage.Stage;
 

@@ -1,4 +1,4 @@
-package bri64.PokemonEngine.model.behavior;
+package com.bri64.PokemonEngine.model.behavior;
 
 /**
  * ItemInteract - [{@link Interaction}] picks up an Item, then displays a {@linkplain MessageInteract Message}

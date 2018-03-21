@@ -1,6 +1,6 @@
-package bri64.PokemonEngine.model;
+package com.bri64.PokemonEngine.model;
 
-import bri64.PokemonEngine.model.behavior.Interaction;
+import com.bri64.PokemonEngine.model.behavior.Interaction;
 
 public abstract class Character extends Entity {
 
@@ -11,6 +11,10 @@ public abstract class Character extends Entity {
     super(interactBehavior, stepBehavior);
 
     this.dir = Direction.DOWN;
+  }
+
+  public void move(Direction d) {
+
   }
 }
 

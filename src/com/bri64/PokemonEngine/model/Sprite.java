@@ -1,4 +1,4 @@
-package bri64.PokemonEngine.model;
+package com.bri64.PokemonEngine.model;
 
 import javafx.scene.image.Image;
 
