@@ -8,6 +8,6 @@ public class Player extends Character {
       Interaction stepBehavior) {
     super(interactBehavior, stepBehavior);
 
-    this.sprite = new Sprite("/sprites/player.png");
+    this.sprite = new Sprite("/sprites/player.png", 16, 0, 16, 20);
   }
 }

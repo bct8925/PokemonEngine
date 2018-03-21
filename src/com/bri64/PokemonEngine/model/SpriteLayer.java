@@ -12,13 +12,16 @@ import javafx.scene.paint.Color;
 
 public class SpriteLayer extends Renderable {
 
-  private int WIDTH = 800;
-  private int HEIGHT = 600;
+  private int WIDTH;
+  private int HEIGHT;
 
-  private WritableImage staticLayer;
+  private transient Image staticLayer;
   private List<Sprite> dynamicLayer;
 
-  public SpriteLayer(RenderLayer layer) {
+  public SpriteLayer(int width, int height, RenderLayer layer) {
+    this.WIDTH = width;
+    this.HEIGHT = height;
+
     this.staticLayer = new WritableImage(WIDTH, HEIGHT);
     this.dynamicLayer = new ArrayList<>();
     this.layer = layer;

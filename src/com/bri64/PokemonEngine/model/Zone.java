@@ -11,29 +11,23 @@ import javafx.scene.paint.Color;
 
 public class Zone extends Renderable {
 
-  private int WIDTH = 800;
-  private int HEIGHT = 600;
+  private int WIDTH;
+  private int HEIGHT;
 
   private SpriteLayer background;
   private SpriteLayer foreground;
   private List<Entity> entities;
 
-  public Zone() {
-    this.background = new SpriteLayer(RenderLayer.BG);
-    this.foreground = new SpriteLayer(RenderLayer.FG);
+  public Zone(int width, int height) {
+    this.WIDTH = width;
+    this.HEIGHT = height;
+
+    this.background = new SpriteLayer(800, 600, RenderLayer.BG);
+    this.foreground = new SpriteLayer(800, 600, RenderLayer.FG);
     this.entities = new ArrayList<>();
     this.layer = RenderLayer.BG;
 
     this.pos = new Point2D(0, 0);
-  }
-
-  public Zone(String path) {
-
-
-    this.background = new SpriteLayer(RenderLayer.BG);
-    this.foreground = new SpriteLayer(RenderLayer.FG);
-    this.entities = new ArrayList<>();
-    this.layer = RenderLayer.BG;
   }
 
   public void addEntity(Entity e) {

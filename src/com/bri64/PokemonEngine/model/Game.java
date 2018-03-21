@@ -2,8 +2,12 @@ package com.bri64.PokemonEngine.model;
 
 import com.bri64.PokemonEngine.appl.RenderController;
 import com.bri64.PokemonEngine.appl.ZoneController;
+import com.google.gson.Gson;
 
 public class Game {
+
+  // Dependencies
+  private Gson gson;
 
   // Controllers
   private RenderController renderController;
@@ -14,9 +18,14 @@ public class Game {
 
   // Init
   public Game(final RenderController renderController) {
-    this.renderController = renderController;
-    this.zoneController = new ZoneController();
+    // Setup dependencies
+    this.gson = new Gson();
 
+    // Setup controllers
+    this.renderController = renderController;
+    this.zoneController = new ZoneController(gson);
+
+    // Setup game
     this.player = new Player(null, null);
     zoneController.getCurrentZone().addEntity(player);
   }
