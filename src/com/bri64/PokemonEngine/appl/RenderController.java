@@ -8,12 +8,15 @@ import javafx.scene.image.Image;
 
 public class RenderController {
 
+  private static int PLAYER_OFFSET_X = 8;
+  private static int PLAYER_OFFSET_Y = 6;
+
   private GraphicsContext gc;
   private Point2D origin;
 
   public RenderController(final GraphicsContext graphicsContext) {
     this.gc = graphicsContext;
-    this.origin = new Point2D((gc.getCanvas().getWidth() / 2) - 8, (gc.getCanvas().getHeight() / 2) - 6);
+    this.origin = new Point2D((gc.getCanvas().getWidth() / 2) - PLAYER_OFFSET_X, (gc.getCanvas().getHeight() / 2) - PLAYER_OFFSET_Y);
   }
 
   public void clear() {
