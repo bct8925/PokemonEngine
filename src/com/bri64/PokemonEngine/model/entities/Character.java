@@ -1,4 +1,4 @@
-package com.bri64.PokemonEngine.model;
+package com.bri64.PokemonEngine.model.entities;
 
 import com.bri64.PokemonEngine.model.behavior.Interaction;
 
@@ -28,12 +28,7 @@ public abstract class Character extends Entity {
         movePos(16, 0);
         break;
     }
+    sprite.changeSprite(d.ordinal());
   }
 }
 
-enum Direction {
-  UP,
-  DOWN,
-  LEFT,
-  RIGHT
-}

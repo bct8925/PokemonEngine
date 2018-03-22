@@ -1,6 +1,10 @@
-package com.bri64.PokemonEngine.model;
+package com.bri64.PokemonEngine.model.entities;
 
+import com.bri64.PokemonEngine.model.Gerializable;
+import com.bri64.PokemonEngine.model.RenderLayer;
+import com.bri64.PokemonEngine.model.Renderable;
 import com.bri64.PokemonEngine.model.behavior.Interaction;
+import com.bri64.PokemonEngine.model.sprite.Sprite;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 

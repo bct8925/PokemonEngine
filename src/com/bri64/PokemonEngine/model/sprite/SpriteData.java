@@ -1,4 +1,4 @@
-package com.bri64.PokemonEngine.model;
+package com.bri64.PokemonEngine.model.sprite;
 
 public class SpriteData {
   private int x;

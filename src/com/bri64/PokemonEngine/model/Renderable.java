@@ -21,8 +21,3 @@ public abstract class Renderable {
   abstract public Image render();
 }
 
-enum RenderLayer {
-  BG,
-  OBJ,
-  FG
-}

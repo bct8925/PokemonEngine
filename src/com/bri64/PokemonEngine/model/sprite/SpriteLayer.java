@@ -1,5 +1,8 @@
-package com.bri64.PokemonEngine.model;
+package com.bri64.PokemonEngine.model.sprite;
 
+import com.bri64.PokemonEngine.model.Gerializable;
+import com.bri64.PokemonEngine.model.RenderLayer;
+import com.bri64.PokemonEngine.model.Renderable;
 import java.util.List;
 import javafx.geometry.Point2D;
 import javafx.scene.SnapshotParameters;
@@ -8,7 +11,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
-public class MultiLayer extends Renderable implements Gerializable {
+public class SpriteLayer extends Renderable implements Gerializable {
 
   private int width;
   private int height;
@@ -17,7 +20,7 @@ public class MultiLayer extends Renderable implements Gerializable {
   private List<SpriteData> staticLayer;
   private List<Sprite> dynamicLayer;
 
-  public MultiLayer(int WIDTH, int HEIGHT, String PATH, List<SpriteData> STATIC, List<Sprite> DYNAMIC, RenderLayer LAYER) {
+  public SpriteLayer(int WIDTH, int HEIGHT, String PATH, List<SpriteData> STATIC, List<Sprite> DYNAMIC, RenderLayer LAYER) {
     this.width = WIDTH;
     this.height = HEIGHT;
     this.layer = LAYER;
@@ -67,7 +70,7 @@ public class MultiLayer extends Renderable implements Gerializable {
   private void draw(GraphicsContext gc, SpriteData s, Image src) {
     gc.drawImage(src, s.getSrcX(), s.getSrcY(), s.getWidth(), s.getHeight(), s.getX(), s.getY(), s.getWidth(), s.getHeight());
   }
-  private void drawSprite(GraphicsContext gc, Renderable r) {
-    gc.drawImage(r.render(), r.pos.getX(), r.pos.getY());
+  private void drawSprite(GraphicsContext gc, Sprite s) {
+    gc.drawImage(s.render(), s.getPos().getX(), s.getPos().getY());
   }
 }

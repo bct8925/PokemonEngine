@@ -1,7 +1,7 @@
 package com.bri64.PokemonEngine.model.behavior;
 
-import com.bri64.PokemonEngine.model.Player;
-import com.bri64.PokemonEngine.model.Zone;
+import com.bri64.PokemonEngine.model.entities.Player;
+import com.bri64.PokemonEngine.model.zone.Zone;
 
 /**
  * PortalInteract - [{@link Interaction}] Teleports {@link Player} between {@link Zone}s

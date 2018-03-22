@@ -1,21 +1,23 @@
-package com.bri64.PokemonEngine.model;
+package com.bri64.PokemonEngine.model.sprite;
 
+import com.bri64.PokemonEngine.model.Gerializable;
+import com.bri64.PokemonEngine.model.Renderable;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
-public class Sprite extends Renderable implements Gerializable {
+public class SingleSprite extends Renderable implements Gerializable {
 
   private String path;
   private SpriteData spriteData;
 
   private transient Image image;
 
-  public Sprite(String PATH, SpriteData SPRITE_DATA) {
+  public SingleSprite(String PATH, SpriteData DATA) {
     this.path = PATH;
-    this.spriteData = SPRITE_DATA;
+    this.spriteData = DATA;
 
     this.setPos(spriteData.getX(), spriteData.getY());
 
