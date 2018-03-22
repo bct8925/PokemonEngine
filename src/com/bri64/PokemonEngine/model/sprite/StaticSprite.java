@@ -8,14 +8,18 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
-public class SingleSprite extends Renderable implements Gerializable {
+public class StaticSprite extends Renderable implements Gerializable {
 
   private String path;
   private SpriteData spriteData;
 
+  public SpriteData getSpriteData() {
+    return spriteData;
+  }
+
   private transient Image image;
 
-  public SingleSprite(String PATH, SpriteData DATA) {
+  public StaticSprite(String PATH, SpriteData DATA) {
     this.path = PATH;
     this.spriteData = DATA;
 

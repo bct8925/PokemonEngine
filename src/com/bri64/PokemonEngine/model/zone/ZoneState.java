@@ -35,9 +35,9 @@ public class ZoneState implements Gerializable {
     entities.add(e);
   }
 
-  public Entity getEntityAt(int tileX, int tileY) {
+  public Entity getEntityAt(double col, double row) {
     for (Entity e : entities) {
-      if (tileX * tileSize == e.getPos().getX() && tileY * tileSize == e.getPos().getY()) {
+      if (col == e.getPos().getX() && row == e.getPos().getY()) {
         return e;
       }
     }

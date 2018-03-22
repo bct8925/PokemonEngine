@@ -9,10 +9,10 @@ public class SpriteSheet implements Gerializable {
   private String path;
   private List<SpriteData> sheetData;
 
-  private transient List<SingleSprite> sheet;
-  private transient SingleSprite current;
+  private transient List<StaticSprite> sheet;
+  private transient StaticSprite current;
 
-  public SingleSprite getCurrent() {
+  public StaticSprite getCurrent() {
     return current;
   }
   public void setCurrent(int index) {
@@ -38,7 +38,7 @@ public class SpriteSheet implements Gerializable {
   public void init() {
     this.sheet = new ArrayList<>();
     for (SpriteData d : sheetData) {
-      sheet.add(new SingleSprite(path, d));
+      sheet.add(new StaticSprite(path, d));
     }
     this.current = sheet.get(0);
   }

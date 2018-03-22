@@ -17,6 +17,8 @@ public class InputController extends Observable {
     keyMap.put(KeyCode.DOWN, new KeyState());
     keyMap.put(KeyCode.LEFT, new KeyState());
     keyMap.put(KeyCode.RIGHT, new KeyState());
+
+    keyMap.put(KeyCode.E, new KeyState());
   }
 
   public KeyState getKeyState(KeyCode code) {

@@ -5,7 +5,7 @@ import com.bri64.PokemonEngine.model.Gerializable;
 import com.bri64.PokemonEngine.model.RenderLayer;
 import com.bri64.PokemonEngine.model.Renderable;
 import com.bri64.PokemonEngine.model.entities.Entity;
-import com.bri64.PokemonEngine.model.sprite.Sprite;
+import com.bri64.PokemonEngine.model.sprite.DynamicSprite;
 import com.bri64.PokemonEngine.model.sprite.SpriteData;
 import com.bri64.PokemonEngine.model.sprite.SpriteLayer;
 import com.bri64.PokemonEngine.model.sprite.SpriteSheet;
@@ -55,12 +55,10 @@ public class Zone extends Renderable implements Gerializable {
       }
     }
 
-    List<Sprite> d_test1 = new ArrayList<>();
-    d_test1.add(new Sprite(208, 240, path, new SpriteSheet(path, new SpriteData(48, 0, 16, 16))));
-    List<Sprite> d_test2 = new ArrayList<>();
-    d_test2.add(new Sprite(240, 240, path, new SpriteSheet(path, new SpriteData(48, 0, 16, 16))));
+    List<DynamicSprite> d_test2 = new ArrayList<>();
+    d_test2.add(new DynamicSprite(240, 240, path, new SpriteSheet(path, new SpriteData(48, 0, 16, 16))));
 
-    this.background = new SpriteLayer(width, height, path, s_test, d_test1, RenderLayer.BG);
+    this.background = new SpriteLayer(width, height, path, s_test, new ArrayList<>(), RenderLayer.BG);
     this.foreground = new SpriteLayer(width, height, path, new ArrayList<>(), d_test2, RenderLayer.FG);
     this.zoneState = new ZoneState(ID, tileSize);
     this.layer = RenderLayer.BG;
@@ -89,14 +87,17 @@ public class Zone extends Renderable implements Gerializable {
     zoneState.addEntity(e);
   }
 
-  public Entity getEntityAt(int tileX, int tileY) {
-    return zoneState.getEntityAt(tileX, tileY);
+  public Entity getEntityAt(double col, double row) {
+    return zoneState.getEntityAt(col, row);
   }
 
 
   // Rendering
-  private void draw(GraphicsContext gc, Renderable r) {
-    gc.drawImage(r.render(), r.getPos().getX(), r.getPos().getY());
+  private void draw(GraphicsContext gc, SpriteLayer s) {
+    gc.drawImage(s.render(), s.getPos().getX(), s.getPos().getY());
+  }
+  private void drawEntity(GraphicsContext gc, Entity e) {
+    gc.drawImage(e.render(), e.getPos().getX() * tileSize, e.getPos().getY() * tileSize);
   }
 
   @Override
@@ -105,8 +106,8 @@ public class Zone extends Renderable implements Gerializable {
     GraphicsContext gc = temp.getGraphicsContext2D();
 
     draw(gc, background);
-    for (Entity r : zoneState.getEntities()) {
-      draw(gc, r);
+    for (Entity e : zoneState.getEntities()) {
+      drawEntity(gc, e);
     }
     draw(gc, foreground);
 

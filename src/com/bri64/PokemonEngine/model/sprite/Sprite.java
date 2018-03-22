@@ -4,7 +4,11 @@ import com.bri64.PokemonEngine.model.Gerializable;
 import com.bri64.PokemonEngine.model.Renderable;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 public class Sprite extends Renderable implements Gerializable {
 
@@ -13,23 +17,31 @@ public class Sprite extends Renderable implements Gerializable {
 
   private transient SpriteSheet current;
 
-  public Sprite(int x, int y, String PATH, SpriteSheet SHEET) {
+  public Sprite(String PATH, SpriteSheet SHEET) {
+    this(0, 0, PATH, SHEET);
+  }
+
+  public Sprite(int X, int Y, String PATH, SpriteSheet SHEET) {
     this.path = PATH;
     this.spriteSheets = new ArrayList<>();
     spriteSheets.add(SHEET);
-
     this.current = spriteSheets.get(0);
-    this.setPos(x, y);
+
+    this.setPos(X, Y);
 
     init();
   }
 
   public Sprite(String PATH, List<SpriteSheet> SHEETS) {
+    this(0, 0, PATH, SHEETS);
+  }
+
+  public Sprite(int X, int Y, String PATH, List<SpriteSheet> SHEETS) {
     this.path = PATH;
     this.spriteSheets = SHEETS;
-
     this.current = spriteSheets.get(0);
-    this.setPos(0, 0);
+
+    this.setPos(X, Y);
 
     init();
   }
@@ -52,6 +64,13 @@ public class Sprite extends Renderable implements Gerializable {
 
   @Override
   public Image render() {
-    return current.getCurrent().render();
+    Canvas temp = new Canvas(current.getCurrent().getSpriteData().getWidth(), current.getCurrent().getSpriteData().getHeight());
+    GraphicsContext gc = temp.getGraphicsContext2D();
+
+    gc.drawImage(current.getCurrent().render(), pos.getX(), pos.getY());
+
+    SnapshotParameters sp = new SnapshotParameters();
+    sp.setFill(new Color(0, 0, 0, 0));
+    return temp.snapshot(sp, null);
   }
 }

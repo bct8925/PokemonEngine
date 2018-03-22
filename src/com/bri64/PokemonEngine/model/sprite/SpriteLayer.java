@@ -17,10 +17,11 @@ public class SpriteLayer extends Renderable implements Gerializable {
   private int height;
   private String path;
   private transient Image staticImage;
-  private List<SpriteData> staticLayer;
-  private List<Sprite> dynamicLayer;
 
-  public SpriteLayer(int WIDTH, int HEIGHT, String PATH, List<SpriteData> STATIC, List<Sprite> DYNAMIC, RenderLayer LAYER) {
+  private List<SpriteData> staticLayer;
+  private List<DynamicSprite> dynamicLayer;
+
+  public SpriteLayer(int WIDTH, int HEIGHT, String PATH, List<SpriteData> STATIC, List<DynamicSprite> DYNAMIC, RenderLayer LAYER) {
     this.width = WIDTH;
     this.height = HEIGHT;
     this.layer = LAYER;
@@ -58,7 +59,7 @@ public class SpriteLayer extends Renderable implements Gerializable {
     GraphicsContext gc = temp.getGraphicsContext2D();
 
     gc.drawImage(staticImage, 0, 0);
-    for (Sprite s : dynamicLayer) {
+    for (DynamicSprite s : dynamicLayer) {
       drawSprite(gc, s);
     }
 
@@ -70,7 +71,7 @@ public class SpriteLayer extends Renderable implements Gerializable {
   private void draw(GraphicsContext gc, SpriteData s, Image src) {
     gc.drawImage(src, s.getSrcX(), s.getSrcY(), s.getWidth(), s.getHeight(), s.getX(), s.getY(), s.getWidth(), s.getHeight());
   }
-  private void drawSprite(GraphicsContext gc, Sprite s) {
+  private void drawSprite(GraphicsContext gc, DynamicSprite s) {
     gc.drawImage(s.render(), s.getPos().getX(), s.getPos().getY());
   }
 }

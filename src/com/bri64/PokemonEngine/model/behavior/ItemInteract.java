@@ -16,6 +16,11 @@ public class ItemInteract extends MessageInteract {
     super(message);
   }
 
+  @Override
+  public void init() {
+
+  }
+
   /**
    * Gives the item, then displays a message
    */

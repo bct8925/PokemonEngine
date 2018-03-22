@@ -1,6 +1,7 @@
 package com.bri64.PokemonEngine.appl;
 
 import com.bri64.PokemonEngine.model.Game;
+import com.bri64.PokemonEngine.model.entities.Entity;
 import com.bri64.PokemonEngine.model.zone.Zone;
 import com.google.gson.stream.JsonReader;
 import java.io.InputStreamReader;
@@ -35,5 +36,10 @@ public class ZoneController {
     Zone zone = Game.gson.fromJson(new JsonReader(new InputStreamReader(this.getClass().getResourceAsStream(path))), Zone.class);
     zone.init();
     return zone;
+  }
+
+  // Zone proxy
+  public Entity getEntityAt(double col, double row) {
+    return currentZone.getEntityAt(col, row);
   }
 }

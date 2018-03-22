@@ -14,6 +14,11 @@ public class MessageInteract implements Interaction {
     this.message = message;
   }
 
+  @Override
+  public void init() {
+
+  }
+
   /**
    * Display the message
    */
@@ -22,4 +27,6 @@ public class MessageInteract implements Interaction {
     // Display message popup
     System.out.println(message);
   }
+
+
 }

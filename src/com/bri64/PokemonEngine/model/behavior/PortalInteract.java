@@ -12,6 +12,11 @@ public class PortalInteract implements Interaction {
 
   }
 
+  @Override
+  public void init() {
+
+  }
+
   /**
    *
    */

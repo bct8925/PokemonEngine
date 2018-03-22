@@ -18,12 +18,15 @@ public class Entity extends Renderable implements Gerializable {
   protected Interaction interactBehavior;
   protected Interaction stepBehavior;
 
-  public Entity(Interaction interactBehavior, Interaction stepBehavior) {
+  public Entity(int X, int Y, Sprite sprite, Interaction interactBehavior, Interaction stepBehavior) {
+    this.sprite = sprite;
     this.interactBehavior = interactBehavior;
     this.stepBehavior = stepBehavior;
     this.layer = RenderLayer.OBJ;
 
-    this.pos = new Point2D(0, 0);
+    this.pos = new Point2D(X, Y);
+
+    init();
   }
 
   @Override
