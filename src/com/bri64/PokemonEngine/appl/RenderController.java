@@ -13,7 +13,7 @@ public class RenderController {
 
   public RenderController(final GraphicsContext graphicsContext) {
     this.gc = graphicsContext;
-    this.origin = new Point2D((gc.getCanvas().getWidth() / 2) - 8, (gc.getCanvas().getHeight() / 2) - 10);
+    this.origin = new Point2D((gc.getCanvas().getWidth() / 2) - 8, (gc.getCanvas().getHeight() / 2) - 6);
   }
 
   public void clear() {
