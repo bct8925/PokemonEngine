@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 /**
  * Entity - a {@link Renderable} with {@link Interaction}(s)
  */
-public class Entity extends Renderable {
+public class Entity extends Renderable implements Gerializable {
 
   protected Sprite sprite;
 
@@ -20,6 +20,11 @@ public class Entity extends Renderable {
     this.layer = RenderLayer.OBJ;
 
     this.pos = new Point2D(0, 0);
+  }
+
+  @Override
+  public void init() {
+    sprite.init();
   }
 
   public void interact() {

@@ -19,11 +19,10 @@ public class ZoneController {
     this.gson = gson;
 
     this.loadedZones = new HashMap<>();
-    this.currentZone = new Zone(800, 600);//loadZone("/");
 
     // Load first zone
-
-    // Set current zone
+    //this.currentZone = loadZone("/zones/test.zone");
+    this.currentZone = new Zone(800, 600, "/sprites/emerald.png", 16);
   }
 
   public Zone getZone(final String ID) {
@@ -37,6 +36,8 @@ public class ZoneController {
   }
 
   private Zone loadZone(String path) {
-    return gson.fromJson(new JsonReader(new InputStreamReader(this.getClass().getResourceAsStream(path))), Zone.class);
+    Zone zone = gson.fromJson(new JsonReader(new InputStreamReader(this.getClass().getResourceAsStream(path))), Zone.class);
+    zone.init();
+    return zone;
   }
 }

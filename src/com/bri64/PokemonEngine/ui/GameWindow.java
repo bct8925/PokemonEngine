@@ -1,10 +1,12 @@
 package com.bri64.PokemonEngine.ui;
 
 import com.bri64.PokemonEngine.appl.RenderController;
+import com.bri64.PokemonEngine.appl.input.InputController;
 import com.bri64.PokemonEngine.model.Game;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 
 public class GameWindow extends Window {
@@ -14,6 +16,7 @@ public class GameWindow extends Window {
 
   private Canvas canvas;
   private RenderController renderController;
+  private InputController inputController;
   private Game game;
 
   public GameWindow() {
@@ -26,7 +29,6 @@ public class GameWindow extends Window {
     // Set content
     GridPane root = new GridPane();
     canvas = new Canvas(WINDOW_WIDTH, WINDOW_HEIGHT);
-
     root.getChildren().add(canvas);
 
     // Set scene
@@ -36,12 +38,16 @@ public class GameWindow extends Window {
   @Override
   public void init() {
     this.renderController = new RenderController(canvas.getGraphicsContext2D());
-    this.game = new Game(renderController);
+    this.inputController = new InputController();
+    this.game = new Game(renderController, inputController);
     new AnimationTimer() {
       @Override
       public void handle(long now) {
         game.render();
       }
     }.start();
+    this.addEventHandler(KeyEvent.ANY, event -> {
+      inputController.doEvent(event);
+    });
   }
 }

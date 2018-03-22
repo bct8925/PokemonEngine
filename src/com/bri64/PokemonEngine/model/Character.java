@@ -14,7 +14,20 @@ public abstract class Character extends Entity {
   }
 
   public void move(Direction d) {
-
+    switch (d) {
+      case UP:
+        movePos(0, -16);
+        break;
+      case DOWN:
+        movePos(0, 16);
+        break;
+      case LEFT:
+        movePos(-16, 0);
+        break;
+      case RIGHT:
+        movePos(16, 0);
+        break;
+    }
   }
 }
 
