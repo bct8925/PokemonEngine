@@ -3,7 +3,7 @@ package com.bri64.PokemonEngine.model.behavior;
 /**
  * MessageInteract - [{@link Interaction}] displays a message
  */
-public class MessageInteract implements Interaction {
+public class MessageInteract extends Interaction {
 
   protected String message;
 
@@ -11,6 +11,8 @@ public class MessageInteract implements Interaction {
    * @param message the message itself
    */
   public MessageInteract(String message) {
+    this.type = "message";
+
     this.message = message;
   }
 

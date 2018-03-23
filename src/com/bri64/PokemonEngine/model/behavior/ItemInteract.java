@@ -14,6 +14,7 @@ public class ItemInteract extends MessageInteract {
   public ItemInteract(/*Item item, */String message) {
     //this.item = item
     super(message);
+    this.type = "item";
   }
 
   @Override

@@ -3,7 +3,10 @@ package com.bri64.PokemonEngine.model;
 import com.bri64.PokemonEngine.appl.RenderController;
 import com.bri64.PokemonEngine.appl.ZoneController;
 import com.bri64.PokemonEngine.appl.input.InputController;
+import com.bri64.PokemonEngine.model.behavior.Interaction;
+import com.bri64.PokemonEngine.model.behavior.ItemInteract;
 import com.bri64.PokemonEngine.model.behavior.MessageInteract;
+import com.bri64.PokemonEngine.model.behavior.PortalInteract;
 import com.bri64.PokemonEngine.model.entities.Entity;
 import com.bri64.PokemonEngine.model.entities.Player;
 import com.bri64.PokemonEngine.model.sprite.Sprite;
@@ -12,6 +15,8 @@ import com.bri64.PokemonEngine.model.sprite.SpriteSheet;
 import com.bri64.PokemonEngine.model.zone.Zone;
 import com.bri64.PokemonEngine.model.zone.ZoneState;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import gson.RuntimeTypeAdapterFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +36,12 @@ public class Game {
   // Init
   public Game(final RenderController renderController, final InputController inputController) {
     // Setup dependencies
-    gson = new Gson();
+    RuntimeTypeAdapterFactory<Interaction> typeFactory = RuntimeTypeAdapterFactory
+        .of(Interaction.class, "type")
+        .registerSubtype(MessageInteract.class, "message")
+        .registerSubtype(ItemInteract.class, "item")
+        .registerSubtype(PortalInteract.class, "portal");
+    gson = new GsonBuilder().registerTypeAdapterFactory(typeFactory).create();
 
     // Setup controllers
     this.renderController = renderController;

@@ -70,16 +70,18 @@ public class Zone extends Renderable implements Gerializable {
 
   @Override
   public void init() {
-    loadState();
+    //this.zoneState = new ZoneState(ID, tileSize);
+    this.zoneState = loadState();
 
     background.init();
     foreground.init();
   }
 
-  private void loadState() {
+  private ZoneState loadState() {
     String PATH = "/zones/" + ID + ".zs";
-    this.zoneState = Game.gson.fromJson(new JsonReader(new InputStreamReader(this.getClass().getResourceAsStream(PATH))), ZoneState.class);
+    ZoneState zoneState = Game.gson.fromJson(new JsonReader(new InputStreamReader(this.getClass().getResourceAsStream(PATH))), ZoneState.class);
     zoneState.init();
+    return zoneState;
   }
 
   // ZoneState proxy

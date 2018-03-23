@@ -6,10 +6,12 @@ import com.bri64.PokemonEngine.model.entities.Entity;
 /**
  * Interaction - [Strategy] adds behavior to an {@link Entity}
  */
-public interface Interaction extends Gerializable {
+public abstract class Interaction implements Gerializable {
+
+  protected String type;
 
   /**
    * Executes the behavior
    */
-  void execute();
+  public abstract void execute();
 }

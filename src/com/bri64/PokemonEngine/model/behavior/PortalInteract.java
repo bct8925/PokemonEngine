@@ -6,10 +6,10 @@ import com.bri64.PokemonEngine.model.zone.Zone;
 /**
  * PortalInteract - [{@link Interaction}] Teleports {@link Player} between {@link Zone}s
  */
-public class PortalInteract implements Interaction {
+public class PortalInteract extends Interaction {
 
   public PortalInteract() {
-
+    this.type = "portal";
   }
 
   @Override
