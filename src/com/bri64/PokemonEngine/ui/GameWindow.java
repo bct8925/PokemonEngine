@@ -39,6 +39,8 @@ public class GameWindow extends Window {
   public void init() {
     this.renderController = new RenderController(canvas.getGraphicsContext2D());
     this.inputController = new InputController();
+    this.addEventHandler(KeyEvent.ANY, event -> inputController.doEvent(event));
+
     this.game = new Game(renderController, inputController);
     new AnimationTimer() {
       @Override
@@ -46,8 +48,5 @@ public class GameWindow extends Window {
         game.render();
       }
     }.start();
-    this.addEventHandler(KeyEvent.ANY, event -> {
-      inputController.doEvent(event);
-    });
   }
 }

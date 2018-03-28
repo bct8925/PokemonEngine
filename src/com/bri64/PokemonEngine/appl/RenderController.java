@@ -27,9 +27,13 @@ public class RenderController {
     this.origin = origin.add(x, y);
   }
 
-  public void render(Zone z) {
+  public void renderBG(Zone z) {
     gc.drawImage(z.render(), z.getPos().getX() + origin.getX(), z.getPos().getY() + origin.getY());
   }
+  public void renderFG(Zone z) {
+    gc.drawImage(z.renderFG(), z.getPos().getX() + origin.getX(), z.getPos().getY() + origin.getY());
+  }
+
   public void renderPlayer(Player p) {
     Image image = p.render();
     gc.drawImage(image, (gc.getCanvas().getWidth() / 2) - (image.getWidth() / 2), (gc.getCanvas().getHeight() / 2) - (image.getHeight() / 2));

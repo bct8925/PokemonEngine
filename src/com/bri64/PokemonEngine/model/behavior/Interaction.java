@@ -10,6 +10,10 @@ public abstract class Interaction implements Gerializable {
 
   protected String type;
 
+  public String getType() {
+    return type;
+  }
+
   /**
    * Executes the behavior
    */

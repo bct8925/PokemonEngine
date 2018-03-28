@@ -1,14 +1,16 @@
 package com.bri64.PokemonEngine.model.zone;
 
-import com.bri64.PokemonEngine.model.Game;
+import com.bri64.PokemonEngine.appl.ZoneController;
 import com.bri64.PokemonEngine.model.Gerializable;
-import com.bri64.PokemonEngine.model.RenderLayer;
 import com.bri64.PokemonEngine.model.Renderable;
 import com.bri64.PokemonEngine.model.entities.Entity;
+import com.bri64.PokemonEngine.model.json.ZoneState_JSON;
+import com.bri64.PokemonEngine.model.json.Zone_JSON;
 import com.bri64.PokemonEngine.model.sprite.DynamicSprite;
 import com.bri64.PokemonEngine.model.sprite.SpriteData;
 import com.bri64.PokemonEngine.model.sprite.SpriteLayer;
 import com.bri64.PokemonEngine.model.sprite.SpriteSheet;
+import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -25,26 +27,41 @@ public class Zone extends Renderable implements Gerializable {
   private String ID;
   private int width;
   private int height;
-  private String path;
   private int tileSize;
+  private SpriteLayer background;
+  private SpriteLayer foreground;
 
   public String getID() {
     return ID;
   }
-
-  private SpriteLayer background;
-  private SpriteLayer foreground;
-  private transient ZoneState zoneState;
-
   public ZoneState getState() {
     return zoneState;
   }
 
-  public Zone(String ID, int WIDTH, int HEIGHT, String PATH, int TILE_SIZE) {
+  private transient ZoneController zoneController;
+  private transient ZoneState zoneState;
+  private transient Gson gsonIn;
+
+  public Zone(Zone_JSON json, Gson gsonIn, final ZoneController zoneController) {
+    this.pos = json.getPos();
+    this.ID = json.getID();
+    this.width = json.getWidth();
+    this.height = json.getHeight();
+    this.tileSize = json.getTileSize();
+
+    this.background = new SpriteLayer(json.getBackground());
+    this.foreground = new SpriteLayer(json.getForeground());
+
+    this.gsonIn = gsonIn;
+    this.zoneController = zoneController;
+    init();
+  }
+
+  // Test constructor
+  public Zone(String ID, int WIDTH, int HEIGHT, int TILE_SIZE, final ZoneController zoneController) {
     this.ID = ID;
     this.width = WIDTH;
     this.height = HEIGHT;
-    this.path = PATH;
     this.tileSize = TILE_SIZE;
 
     List<SpriteData> s_test = new ArrayList<>();
@@ -55,33 +72,31 @@ public class Zone extends Renderable implements Gerializable {
       }
     }
 
+    String path = "/sprites/emerald.png";
     List<DynamicSprite> d_test2 = new ArrayList<>();
-    d_test2.add(new DynamicSprite(240, 240, path, new SpriteSheet(path, new SpriteData(48, 0, 16, 16))));
+    List<SpriteData> test2 = new ArrayList<>();
+    test2.add(new SpriteData(48, 0, 16, 16));
+    test2.add(new SpriteData(64, 0, 16, 16));
+    d_test2.add(new DynamicSprite(64, 64, new SpriteSheet(path, test2), 60));
 
-    this.background = new SpriteLayer(width, height, path, s_test, new ArrayList<>(), RenderLayer.BG);
-    this.foreground = new SpriteLayer(width, height, path, new ArrayList<>(), d_test2, RenderLayer.FG);
-    this.zoneState = new ZoneState(ID, tileSize);
-    this.layer = RenderLayer.BG;
+    this.background = new SpriteLayer(width, height, path, s_test, d_test2);
+    this.foreground = new SpriteLayer(width, height, path, new ArrayList<>(), d_test2);
 
     this.pos = new Point2D(0, 0);
 
-    //init();
+    this.zoneState = new ZoneState(ID);
+    this.zoneController = zoneController;
   }
 
   @Override
   public void init() {
-    //this.zoneState = new ZoneState(ID, tileSize);
     this.zoneState = loadState();
-
-    background.init();
-    foreground.init();
   }
 
   private ZoneState loadState() {
     String PATH = "/zones/" + ID + ".zs";
-    ZoneState zoneState = Game.gson.fromJson(new JsonReader(new InputStreamReader(this.getClass().getResourceAsStream(PATH))), ZoneState.class);
-    zoneState.init();
-    return zoneState;
+    ZoneState_JSON zoneState = gsonIn.fromJson(new JsonReader(new InputStreamReader(this.getClass().getResourceAsStream(PATH))), ZoneState_JSON.class);
+    return new ZoneState(zoneState);
   }
 
   // ZoneState proxy
@@ -111,6 +126,16 @@ public class Zone extends Renderable implements Gerializable {
     for (Entity e : zoneState.getEntities()) {
       drawEntity(gc, e);
     }
+
+    SnapshotParameters sp = new SnapshotParameters();
+    sp.setFill(new Color(0, 0, 0, 0));
+    return temp.snapshot(sp, null);
+  }
+
+  public Image renderFG() {
+    Canvas temp = new Canvas(width, height);
+    GraphicsContext gc = temp.getGraphicsContext2D();
+
     draw(gc, foreground);
 
     SnapshotParameters sp = new SnapshotParameters();

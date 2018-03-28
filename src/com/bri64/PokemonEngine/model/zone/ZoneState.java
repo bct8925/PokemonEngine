@@ -1,24 +1,43 @@
 package com.bri64.PokemonEngine.model.zone;
 
 import com.bri64.PokemonEngine.model.Gerializable;
+import com.bri64.PokemonEngine.model.behavior.Interaction;
+import com.bri64.PokemonEngine.model.behavior.PortalInteract;
 import com.bri64.PokemonEngine.model.entities.Entity;
+import com.bri64.PokemonEngine.model.json.Entity_JSON;
+import com.bri64.PokemonEngine.model.json.ZoneState_JSON;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ZoneState implements Gerializable {
 
   private String ID;
-  private int tileSize;
-
   private List<Entity> entities;
 
   public List<Entity> getEntities() {
     return entities;
   }
 
-  public ZoneState(String ID, int TILE_SIZE) {
+  private transient List<Entity> portals;
+
+  public List<Entity> getPortals() {
+    return portals;
+  }
+
+  public ZoneState(ZoneState_JSON json) {
+    this.ID = json.getID();
+
+    this.entities = new ArrayList<>();
+    for (Entity_JSON e : json.getEntities()) {
+      entities.add(new Entity(e));
+    }
+
+    init();
+  }
+
+  // Test constructor
+  public ZoneState(String ID) {
     this.ID = ID;
-    this.tileSize = TILE_SIZE;
     this.entities = new ArrayList<>();
 
     init();
@@ -26,8 +45,12 @@ public class ZoneState implements Gerializable {
 
   @Override
   public void init() {
+    this.portals = new ArrayList<>();
     for (Entity e : entities) {
-      e.init();
+      Interaction step = e.getStep();
+      if (step != null && step instanceof PortalInteract) {
+        portals.add(e);
+      }
     }
   }
 

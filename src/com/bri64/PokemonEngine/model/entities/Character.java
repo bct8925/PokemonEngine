@@ -2,22 +2,35 @@ package com.bri64.PokemonEngine.model.entities;
 
 import com.bri64.PokemonEngine.appl.ZoneController;
 import com.bri64.PokemonEngine.model.behavior.Interaction;
+import com.bri64.PokemonEngine.model.json.Character_JSON;
 import com.bri64.PokemonEngine.model.sprite.Sprite;
 
 public abstract class Character extends Entity {
 
   protected Direction dir;
 
-  private transient ZoneController zoneController;
+  protected transient ZoneController zoneController;
 
-  public Character(int X, int Y, Sprite sprite, final ZoneController zoneController, Interaction interactBehavior,
-      Interaction stepBehavior) {
-    super(X, Y, sprite, interactBehavior, stepBehavior);
+  public Character(Character_JSON json, final ZoneController zoneController) {
+    super(json);
+
+    this.type = "character";
+
+    this.dir = json.getDir();
+    sprite.changeSprite(dir.ordinal());
 
     this.zoneController = zoneController;
+  }
+
+  public Character(int X, int Y, Sprite sprite, Interaction interactBehavior, final ZoneController zoneController) {
+    super(X, Y, sprite, interactBehavior, null);
+
+    this.type = "character";
 
     this.dir = Direction.DOWN;
     sprite.changeSprite(dir.ordinal());
+
+    this.zoneController = zoneController;
   }
 
   public boolean move(Direction d) {

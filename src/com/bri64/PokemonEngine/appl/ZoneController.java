@@ -1,8 +1,9 @@
 package com.bri64.PokemonEngine.appl;
 
-import com.bri64.PokemonEngine.model.Game;
 import com.bri64.PokemonEngine.model.entities.Entity;
+import com.bri64.PokemonEngine.model.json.Zone_JSON;
 import com.bri64.PokemonEngine.model.zone.Zone;
+import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import java.io.InputStreamReader;
 import java.util.HashMap;
@@ -14,14 +15,6 @@ public class ZoneController {
   private Map<String, Zone> loadedZones;
   private Zone currentZone;
 
-  public ZoneController() {
-    this.loadedZones = new HashMap<>();
-
-    // Load first zone
-    this.currentZone = loadZone("/zones/test.zo");
-    //this.currentZone = new Zone("test", 800, 600, "/sprites/emerald.png", 16);
-  }
-
   public Zone getZone(final String ID) {
     return loadedZones.get(ID);
   }
@@ -32,10 +25,20 @@ public class ZoneController {
     currentZone = getZone(ID);
   }
 
+  private transient Gson gsonIn;
+
+  public ZoneController(Gson gsonIn) {
+    this.gsonIn = gsonIn;
+
+    // Load first zone
+    this.loadedZones = new HashMap<>();
+    this.currentZone = loadZone("/zones/test.zo");
+    //this.currentZone = new Zone("test", 800, 600, 16, this);
+  }
+
   private Zone loadZone(String path) {
-    Zone zone = Game.gson.fromJson(new JsonReader(new InputStreamReader(this.getClass().getResourceAsStream(path))), Zone.class);
-    zone.init();
-    return zone;
+    Zone_JSON zone = gsonIn.fromJson(new JsonReader(new InputStreamReader(this.getClass().getResourceAsStream(path))), Zone_JSON.class);
+    return new Zone(zone, gsonIn, this);
   }
 
   // Zone proxy

@@ -2,6 +2,8 @@ package com.bri64.PokemonEngine.model.sprite;
 
 import com.bri64.PokemonEngine.model.Gerializable;
 import com.bri64.PokemonEngine.model.Renderable;
+import com.bri64.PokemonEngine.model.json.SpriteSheet_JSON;
+import com.bri64.PokemonEngine.model.json.Sprite_JSON;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.SnapshotParameters;
@@ -12,17 +14,32 @@ import javafx.scene.paint.Color;
 
 public class Sprite extends Renderable implements Gerializable {
 
-  private String path;
-  private List<SpriteSheet> spriteSheets;
+  protected String type;
 
-  private transient SpriteSheet current;
+  protected List<SpriteSheet> spriteSheets;
 
-  public Sprite(String PATH, SpriteSheet SHEET) {
-    this(0, 0, PATH, SHEET);
+  protected transient SpriteSheet current;
+
+  public Sprite(Sprite_JSON json) {
+    this.type = "sprite";
+
+    this.pos = json.getPos();
+
+    this.spriteSheets = new ArrayList<>();
+    for (SpriteSheet_JSON j : json.getSpriteSheets()) {
+      this.spriteSheets.add(new SpriteSheet(j));
+    }
+
+    init();
   }
 
-  public Sprite(int X, int Y, String PATH, SpriteSheet SHEET) {
-    this.path = PATH;
+  // Test constructors
+  public Sprite(SpriteSheet SHEET) {
+    this(0, 0, SHEET);
+  }
+  public Sprite(int X, int Y, SpriteSheet SHEET) {
+    this.type = "sprite";
+
     this.spriteSheets = new ArrayList<>();
     spriteSheets.add(SHEET);
     this.current = spriteSheets.get(0);
@@ -31,13 +48,12 @@ public class Sprite extends Renderable implements Gerializable {
 
     init();
   }
-
-  public Sprite(String PATH, List<SpriteSheet> SHEETS) {
-    this(0, 0, PATH, SHEETS);
+  public Sprite(List<SpriteSheet> SHEETS) {
+    this(0, 0, SHEETS);
   }
+  public Sprite(int X, int Y, List<SpriteSheet> SHEETS) {
+    this.type = "sprite";
 
-  public Sprite(int X, int Y, String PATH, List<SpriteSheet> SHEETS) {
-    this.path = PATH;
     this.spriteSheets = SHEETS;
     this.current = spriteSheets.get(0);
 
@@ -48,18 +64,20 @@ public class Sprite extends Renderable implements Gerializable {
 
   @Override
   public void init() {
-    for (SpriteSheet s : spriteSheets) {
-      s.init();
-    }
     this.current = spriteSheets.get(0);
   }
 
-  public void changeSprite(int index) {
-    current.setCurrent(index);
+  public int getCurSprite() {
+    return current.getCurrentIndex();
   }
-
+  public int getCurSheet() {
+    return spriteSheets.indexOf(current);
+  }
+  public void changeSprite(int index) {
+    this.current.setCurrent(index);
+  }
   public void changeSheet(int index) {
-    current = spriteSheets.get(index);
+    this.current = spriteSheets.get(index);
   }
 
   @Override

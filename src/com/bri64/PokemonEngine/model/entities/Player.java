@@ -3,7 +3,6 @@ package com.bri64.PokemonEngine.model.entities;
 import com.bri64.PokemonEngine.appl.RenderController;
 import com.bri64.PokemonEngine.appl.ZoneController;
 import com.bri64.PokemonEngine.appl.input.InputController;
-import com.bri64.PokemonEngine.model.behavior.Interaction;
 import com.bri64.PokemonEngine.model.sprite.Sprite;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,13 +17,10 @@ public class Player extends Character implements Observer {
 
   private transient InputController inputController;
   private transient RenderController renderController;
-  private transient ZoneController zoneController;
 
-  public Player(int X, int Y, Sprite sprite, final InputController inputController, final RenderController renderController, final ZoneController zoneController, Interaction interactBehavior,
-      Interaction stepBehavior) {
-    super(X, Y, sprite, zoneController, interactBehavior, stepBehavior);
+  public Player(int X, int Y, Sprite sprite, final RenderController renderController, final InputController inputController, final ZoneController zoneController) {
+    super(X, Y, sprite, null, zoneController);
 
-    this.zoneController = zoneController;
     this.renderController = renderController;
     this.inputController = inputController;
     inputController.addObserver(this);
@@ -85,5 +81,9 @@ public class Player extends Character implements Observer {
     });
     Runnable run = exec.get(arg);
     if (run != null) run.run();
+  }
+
+  public void draw() {
+    renderController.renderPlayer(this);
   }
 }

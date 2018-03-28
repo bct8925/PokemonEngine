@@ -6,12 +6,11 @@ import javafx.scene.image.Image;
 public abstract class Renderable {
 
   protected Point2D pos;
-  protected RenderLayer layer;
 
   public Point2D getPos() {
     return pos;
   }
-  public void setPos(double x, double y) {
+  protected void setPos(double x, double y) {
     pos = new Point2D(x, y);
   }
   protected void movePos(final double x, final double y) {
