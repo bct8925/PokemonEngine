@@ -1,4 +1,4 @@
-package com.bri64.PokemonEngine.model.entities;
+package com.bri64.PokemonEngine.model.entities.character;
 
 import com.bri64.PokemonEngine.appl.ZoneController;
 import com.bri64.PokemonEngine.model.behavior.Interaction;

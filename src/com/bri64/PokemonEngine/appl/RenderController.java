@@ -1,6 +1,6 @@
 package com.bri64.PokemonEngine.appl;
 
-import com.bri64.PokemonEngine.model.entities.Player;
+import com.bri64.PokemonEngine.model.entities.character.player.Player;
 import com.bri64.PokemonEngine.model.zone.Zone;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -8,8 +8,8 @@ import javafx.scene.image.Image;
 
 public class RenderController {
 
-  private static int PLAYER_OFFSET_X = 8; // player (width / 2)
-  private static int PLAYER_OFFSET_Y = 6; // player (height / 2) + 4
+  private static int PLAYER_OFFSET_X = 8; // character (width / 2)
+  private static int PLAYER_OFFSET_Y = 6; // character (height / 2) + 4
 
   private GraphicsContext gc;
   private Point2D origin;

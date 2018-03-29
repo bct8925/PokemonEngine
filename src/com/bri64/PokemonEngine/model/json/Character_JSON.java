@@ -1,6 +1,6 @@
 package com.bri64.PokemonEngine.model.json;
 
-import com.bri64.PokemonEngine.model.entities.Direction;
+import com.bri64.PokemonEngine.model.entities.character.Direction;
 
 public class Character_JSON extends Entity_JSON {
   protected Direction dir;

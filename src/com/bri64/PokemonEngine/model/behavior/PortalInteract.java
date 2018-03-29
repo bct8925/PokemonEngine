@@ -1,7 +1,7 @@
 package com.bri64.PokemonEngine.model.behavior;
 
 import com.bri64.PokemonEngine.appl.ZoneController;
-import com.bri64.PokemonEngine.model.entities.Player;
+import com.bri64.PokemonEngine.model.entities.character.player.Player;
 import com.bri64.PokemonEngine.model.zone.Zone;
 import javafx.geometry.Point2D;
 
