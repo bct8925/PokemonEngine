@@ -2,12 +2,10 @@ package com.bri64.PokemonEngine.appl.input;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Observable;
-import javafx.event.EventType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public class InputController extends Observable {
+public class InputController {
 
   private Map<KeyCode, KeyState> keyMap;
 
@@ -26,23 +24,12 @@ public class InputController extends Observable {
   }
 
   public void doEvent(KeyEvent event) {
-    Map<EventType<KeyEvent>, Runnable> exec = new HashMap<>();
-    exec.put(KeyEvent.KEY_PRESSED, () -> {
-      if (keyMap.containsKey(event.getCode())) {
+    if (keyMap.containsKey(event.getCode())) {
+      if (event.getEventType() == KeyEvent.KEY_PRESSED) {
         keyMap.get(event.getCode()).press();
-        setChanged();
-        notifyObservers(event.getCode());
-      }
-    });
-    exec.put(KeyEvent.KEY_RELEASED, () -> {
-      if (keyMap.containsKey(event.getCode())) {
+      } else if (event.getEventType() == KeyEvent.KEY_RELEASED) {
         keyMap.get(event.getCode()).release();
-        setChanged();
-        notifyObservers(event.getCode());
       }
-    });
-
-    Runnable run = exec.get(event.getEventType());
-    if (run != null) run.run();
+    }
   }
 }

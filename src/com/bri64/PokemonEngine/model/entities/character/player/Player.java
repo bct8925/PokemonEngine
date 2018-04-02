@@ -10,15 +10,12 @@ import com.bri64.PokemonEngine.model.sprite.Sprite;
 import com.bri64.PokemonEngine.model.sprite.SpriteData;
 import com.bri64.PokemonEngine.model.sprite.SpriteSheet;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 
-public class Player extends Character implements Observer {
+public class Player extends Character {
 
   public static String SPRITE_SRC = "/sprites/player.png";
 
@@ -30,7 +27,6 @@ public class Player extends Character implements Observer {
 
     this.renderController = renderController;
     this.inputController = inputController;
-    inputController.addObserver(this);
 
     List<SpriteSheet> sheets = new ArrayList<>();
     List<SpriteData> data = new ArrayList<>();
@@ -66,51 +62,39 @@ public class Player extends Character implements Observer {
   }
 
   @Override
-  public void update(Observable o, Object arg) {
-    Map<KeyCode, Runnable> exec = new HashMap<>();
-    exec.put(KeyCode.UP, () -> {
-      if (inputController.getKeyState(KeyCode.UP).isDown()) {
-        if (canMove(Direction.UP)) {
-          move(Direction.UP);
-          renderController.moveOrigin(0, 16);
-        }
-      }
-    });
-    exec.put(KeyCode.DOWN, () -> {
-      if (inputController.getKeyState(KeyCode.DOWN).isDown()) {
-        if (canMove(Direction.DOWN)) {
-          move(Direction.DOWN);
-          renderController.moveOrigin(0, -16);
-        }
-      }
-    });
-    exec.put(KeyCode.LEFT, () -> {
-      if (inputController.getKeyState(KeyCode.LEFT).isDown()) {
-        if (canMove(Direction.LEFT)) {
-          move(Direction.LEFT);
-          renderController.moveOrigin(16, 0);
-        }
-      }
-    });
-    exec.put(KeyCode.RIGHT, () -> {
-      if (inputController.getKeyState(KeyCode.RIGHT).isDown()) {
-        if (canMove(Direction.RIGHT)) {
-          move(Direction.RIGHT);
-          renderController.moveOrigin(-16, 0);
-        }
-      }
-    });
-
-    exec.put(KeyCode.E, () -> {
-      if (inputController.getKeyState(KeyCode.E).isDown()) {
-        interactWith();
-      }
-    });
-    Runnable run = exec.get(arg);
-    if (run != null) run.run();
+  public Image render() {
+    updateInput();
+    return super.render();
   }
+  
+  private void updateInput() {
+    if (inputController.getKeyState(KeyCode.UP).isDown()) {
+      if (canMove(Direction.UP)) {
+        move(Direction.UP);
+        renderController.moveOrigin(0, 16);
+      }
+    }
+    else if (inputController.getKeyState(KeyCode.DOWN).isDown()) {
+      if (canMove(Direction.DOWN)) {
+        move(Direction.DOWN);
+        renderController.moveOrigin(0, -16);
+      }
+    }
+    else if (inputController.getKeyState(KeyCode.LEFT).isDown()) {
+      if (canMove(Direction.LEFT)) {
+        move(Direction.LEFT);
+        renderController.moveOrigin(16, 0);
+      }
+    }
+    else if (inputController.getKeyState(KeyCode.RIGHT).isDown()) {
+      if (canMove(Direction.RIGHT)) {
+        move(Direction.RIGHT);
+        renderController.moveOrigin(-16, 0);
+      }
+    }
 
-  public void draw() {
-    renderController.renderPlayer(this);
+    if (inputController.getKeyState(KeyCode.E).isPressedOnce()) {
+      interactWith();
+    }
   }
 }
