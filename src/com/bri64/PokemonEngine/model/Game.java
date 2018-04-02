@@ -30,7 +30,7 @@ public class Game {
     this.gsonController = new GsonController();
     this.renderController = renderController;
     this.inputController = inputController;
-    this.zoneController = new ZoneController(gsonController.getInput());
+    this.zoneController = new ZoneController(renderController, gsonController.getInput());
 
     // Setup game
     this.player = new Player(0, 0, renderController, inputController, zoneController);
@@ -48,13 +48,13 @@ public class Game {
     renderController.clear();
 
     // Render zone background & entities
-    renderController.renderBG(zoneController.getCurrentZone());
+    zoneController.renderLoadedZonesBG();
 
     // Render character
     renderController.renderPlayer(player);
 
     // Render zone foreground
-    renderController.renderFG(zoneController.getCurrentZone());
+    zoneController.renderLoadedZonesFG();
 
     // Render GUI elements
   }
